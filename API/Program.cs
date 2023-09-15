@@ -35,6 +35,7 @@ try
 {
     var context = service.GetRequiredService<DataContext>();
     context.Database.Migrate();
+    await Seed.SeedData(context);
 
 }
 catch (Exception ex)
