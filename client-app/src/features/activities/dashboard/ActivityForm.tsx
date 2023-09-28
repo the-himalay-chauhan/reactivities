@@ -1,31 +1,33 @@
-import { Button, Form, Segment } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
-import { ChangeEvent, useState } from "react";
+import { Button, Form, Segment } from 'semantic-ui-react';
+import { Activity } from '../../../app/models/activity';
+import { ChangeEvent, useState } from 'react';
 
 interface Props {
   activity: Activity | undefined;
   closeForm: () => void;
   createOrEdit: (activity: Activity) => void;
+  submitting: boolean;
 }
 export default function ActivityForm({
   activity: selectedActivity,
   closeForm,
   createOrEdit,
+  submitting,
 }: Props) {
   const initialState = selectedActivity ?? {
-    id: "",
-    title: "",
-    category: "",
-    description: "",
-    date: "",
-    city: "",
-    venue: "",
+    id: '',
+    title: '',
+    category: '',
+    description: '',
+    date: '',
+    city: '',
+    venue: '',
   };
 
   const [activity, setActivity] = useState(initialState);
 
   function handleSubmit() {
-    console.log("activity: ", activity);
+    console.log('activity: ', activity);
     createOrEdit(activity);
   }
 
@@ -63,6 +65,7 @@ export default function ActivityForm({
             placeholder="Date"
             value={activity.date}
             name="date"
+            type="Date"
             onChange={handleInputChange}
           ></Form.Input>
           <Form.Input
@@ -78,7 +81,13 @@ export default function ActivityForm({
             onChange={handleInputChange}
           ></Form.Input>
 
-          <Button floated="right" positive type="submit" content="Submit" />
+          <Button
+            loading={submitting}
+            floated="right"
+            positive
+            type="submit"
+            content="Submit"
+          />
           <Button
             onClick={closeForm}
             floated="right"

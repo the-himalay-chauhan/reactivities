@@ -1,8 +1,8 @@
-import { Grid } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
-import ActivityList from "./ActivityList";
-import ActivityDetails from "./ActivityDetails";
-import ActivityForm from "./ActivityForm";
+import { Grid } from 'semantic-ui-react';
+import { Activity } from '../../../app/models/activity';
+import ActivityList from './ActivityList';
+import ActivityDetails from './ActivityDetails';
+import ActivityForm from './ActivityForm';
 
 interface Props {
   activities: Activity[];
@@ -14,6 +14,7 @@ interface Props {
   closeForm: () => void;
   createOrEdit: (activity: Activity) => void;
   deleteActivity: (id: string) => void;
+  submitting: boolean;
 }
 export default function ActivityDashboard({
   activities,
@@ -24,19 +25,21 @@ export default function ActivityDashboard({
   openForm,
   closeForm,
   createOrEdit,
-  deleteActivity
+  deleteActivity,
+  submitting,
 }: Props) {
   return (
     <>
       <Grid>
-        <Grid.Column width={"10"}>
+        <Grid.Column width={'10'}>
           <ActivityList
             activities={activities}
             selectActivity={selectActivity}
             deleteActivity={deleteActivity}
+            submitting={submitting}
           ></ActivityList>
         </Grid.Column>
-        <Grid.Column width={"6"}>
+        <Grid.Column width={'6'}>
           {selectedActivity && !editMode && (
             <ActivityDetails
               activity={selectedActivity}
@@ -49,6 +52,7 @@ export default function ActivityDashboard({
               closeForm={closeForm}
               activity={selectedActivity}
               createOrEdit={createOrEdit}
+              submitting={submitting}
             ></ActivityForm>
           )}
         </Grid.Column>
